@@ -1,20 +1,26 @@
 // src/services/userService.ts
 
-const API_URL = 'http:'; // Replace with your actual API URL
+const API_URL = 'http://192.168.40.79:2024'; // Replace with your actual API URL
 
 interface UserData {
+  id: number;
   username: string;
+  passwordHash: string;
+  email: string;
+  lastName: string;
+  firstName: string;
   // Add other user properties as needed
 }
 
 export async function fetchUserData(): Promise<UserData | null> {
-  const token = localStorage.getItem('userToken');
+  console.log('functionbeing called');
+  const token =   //localStorage.getItem('userToken');
   
   try {
     const response = await fetch(`${API_URL}/auth/user`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        'x-access-token': `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     });
