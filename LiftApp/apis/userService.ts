@@ -14,7 +14,7 @@ interface UserData {
 
 export async function fetchUserData(): Promise<UserData | null> {
   console.log('functionbeing called');
-  const token =   //localStorage.getItem('userToken');
+  const token =  'eyJhbGciOiJIUzI1NiJ9.MQ.fGaUARI99DDadCuNm4ZUhaB6Bpx8KiJsnCLTisJ0bp4' //localStorage.getItem('userToken');
   
   try {
     const response = await fetch(`${API_URL}/auth/user`, {

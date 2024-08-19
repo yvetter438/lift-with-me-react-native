@@ -1,8 +1,8 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -16,11 +16,24 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+  const segments = useSegments();
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() => {
+    // Wait until the root layout and fonts are loaded before navigation
+    if (loaded) {
+      if (!isLoggedIn && segments[0] !== 'screens') {
+        router.replace('/screens/SignInScreen');
+      }
+    }
+  }, [segments, isLoggedIn, loaded]);
 
   if (!loaded) {
     return null;
