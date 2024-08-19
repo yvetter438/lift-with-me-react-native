@@ -14,6 +14,11 @@ const SignInScreen = () => {
     }, 100); // Delay to ensure the component is mounted and ready
   };
 
+  const navigateToSignUp = () => {
+    router.push('/screens/SignUpScreen'); // Navigate to SignUp screen
+  };
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Logo</Text>
@@ -21,12 +26,14 @@ const SignInScreen = () => {
       <TextInput 
         style={styles.input}
         placeholder="Username"
+        placeholderTextColor="#aaa"
       />
       
       <TextInput 
         style={styles.input}
         placeholder="Password"
         secureTextEntry={true}
+        placeholderTextColor="#aaa"
       />
 
       <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
@@ -37,7 +44,7 @@ const SignInScreen = () => {
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </TouchableOpacity>
       
-      <TouchableOpacity>
+      <TouchableOpacity onPress={navigateToSignUp}>
         <Text style={styles.createAccount}>Don't have an account? Create One</Text>
       </TouchableOpacity>
     </View>
