@@ -1,5 +1,7 @@
 // src/services/userService.ts
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const API_URL = 'http://192.168.40.79:2024'; // Replace with your actual API URL
 
 interface UserData {
@@ -13,10 +15,17 @@ interface UserData {
 }
 
 export async function fetchUserData(): Promise<UserData | null> {
-  console.log('functionbeing called');
-  const token =  'eyJhbGciOiJIUzI1NiJ9.MQ.fGaUARI99DDadCuNm4ZUhaB6Bpx8KiJsnCLTisJ0bp4' //localStorage.getItem('userToken');
-  
+  console.log('function being called');
+
   try {
+    // Retrieve the token from AsyncStorage
+    const token = await AsyncStorage.getItem('userToken');
+
+    if (!token) {
+      console.error('No token found');
+      return null;
+    }
+
     const response = await fetch(`${API_URL}/auth/user`, {
       method: 'GET',
       headers: {
