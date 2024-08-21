@@ -15,7 +15,7 @@ interface UserData {
 }
 
 export async function fetchUserData(): Promise<UserData | null> {
-  console.log('function being called');
+  console.log('fethc user data function being called');
 
   try {
     // Retrieve the token from AsyncStorage

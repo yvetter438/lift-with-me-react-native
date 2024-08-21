@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchUserData } from '../apis/userService';
 import { Text, View } from 'react-native';
+import LogoutButton from './LogoutButton';
 
 const UserProfile: React.FC = () => {
   const [username, setUsername] = useState<string>('');
@@ -19,6 +20,7 @@ const UserProfile: React.FC = () => {
   return (
     <View>
       <Text>Welcome, {username}!</Text>
+      <LogoutButton />
     </View>
   );
 }

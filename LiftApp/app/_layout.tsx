@@ -4,9 +4,9 @@ import { Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -50,12 +50,20 @@ export default function RootLayout() {
   }, [loaded]);
 
   useEffect(() => {
+    // Debugging logs
+    console.log('Current segment:', segments[0]);
+    console.log('Is logged in:', isLoggedIn);
+    
     // Navigate to the appropriate screen based on login status
     if (loaded) {
       if (!isLoggedIn && segments[0] !== 'screens') {
+        console.log('Navigating to SignInScreen');
         router.replace('/screens/SignInScreen');
       } else if (isLoggedIn && segments[0] === 'screens') {
-        router.replace('/(tabs)/profile');
+        console.log('Navigating to profile');
+        setTimeout(() => {
+          router.replace('/(tabs)/profile');
+        }, 100); // Adjust delay if necessary
       }
     }
   }, [segments, isLoggedIn, loaded]);
